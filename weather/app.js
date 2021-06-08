@@ -7,14 +7,18 @@ const chalk = require('chalk')
 // for farhenheit
 // const url = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=37.8267,122.4233&units=f'
 // for metric 
-const url = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=37.8267,122.4233'
+const url = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query='
 
 request({ url:url, json:true }, (error, response) => {
     if(error){
 
-        console.log("Unable to connect to weather services");
+        console.log("Unable to connect to weather services!");
 
-    }else{
+    } else if(response.body.error) {
+
+        console.log("Unable to find location");
+
+    } else {
 
     // const data = JSON.parse(response.body)
     // console.log(response.body.current);
