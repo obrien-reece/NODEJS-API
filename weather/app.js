@@ -1,13 +1,86 @@
 const request = require("request")
 const chalk = require('chalk')
+const forecast = require("./utils/forecast")
+const geocode = require("./utils/geocode")
 
+forecast(-1.286389,36.817223, (error, data) => {
+    console.log("Error", error);
+    console.log("Data", data);
+})
 
+geocode("Nairobi", (error,data) => {
+    console.log("Data",data);
+    console.log("Error",error);
+})
+
+// gets  ordered food when
+// food is ready
+// const getFood = function() {
+//     console.log('3. thank you, I have reaceived my food!');
+//   }
+  
+//   // receives  ordered food
+//   // receives a function that will be called 
+//   // when 1 second ellapses
+//   // prepares  the ordered food
+//   const prepareFood = function (food, callback) {
+    
+//     // built-in javascript funtion
+//     // delays exution of console.log expression 
+//     // for one second
+//     setTimeout(function() {
+      
+//       console.log('2. dear customer your '+ food + ' is ready!');
+      
+//       // this  is a callback function
+//       // will be called at the right time when
+//       // our food is ready
+//       callback();
+      
+//     }, 1000);
+    
+//   }
+  
+//   // receives needed food
+//   // orders specified food
+//   const orderFood = function (food) {
+    
+//     console.log('1. I need ' + food);
+    
+//     prepareFood(food, getFood);
+    
+//   }
+  
+//   orderFood('1 Burger and 1 piece Chicken'); // lets order our food here
 // for scientific
 // const url = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=37.8267,122.4233&units=s'
 // for farhenheit
 // const url = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=37.8267,122.4233&units=f'
 // for metric 
 // const url = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=37.8267,122.4233'
+
+// const coordinatesUrl = (coordinates, callback) => {
+//     const url = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=' + coordinates
+    
+//     request({ url:url,json:true },(error,response) => {
+//         if(error){
+//             callback("Network Down")
+//         }else if(response.body.error){
+//             callback("Wrong coordinates")
+//         }else{
+//             callback({
+//                 feelslike: response.body.current.feelslike,
+//                 description: response.body.current.weather_descriptions[0],
+//                 temperature: response.body.current.temperature,
+//             })
+//         }
+//     })
+// }
+
+// coordinatesUrl("37.8267,-122.4233", (error,data) => {
+//     console.log("Error", error);
+//     console.log("Data", data);
+// })
 
 // request({ url:url, json:true }, (error, response) => {
 //     if(error){
@@ -32,18 +105,18 @@ const chalk = require('chalk')
 //     }
 // })
 
-const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/123455.json?access_token=pk.eyJ1IjoidGhhdGJveXJlZWNlIiwiYSI6ImNrcG9oYmloYjAyd3AydnFxNjBxaTJoNDgifQ.yfAdMhYBtriEhHIeak5j4A&limit=1"
+// const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/123455.json?access_token=pk.eyJ1IjoidGhhdGJveXJlZWNlIiwiYSI6ImNrcG9oYmloYjAyd3AydnFxNjBxaTJoNDgifQ.yfAdMhYBtriEhHIeak5j4A&limit=1"
 
-request({ url:url, json:true }, (error, response) => {
-    if(error){
-        console.log("Unable to reach services");
-    }else if(response.body.features.length === 0){
-        console.log("Unable to find location");
-    }else{
-        const longitude = response.body.features[0].center[0]
-        console.log(longitude);
-        const latitude = response.body.features[0].center[1]
-        console.log(latitude);    
-        // console.log(latitude, longitude);
-    }
-})
+// request({ url:url, json:true }, (error, response) => {
+//     if(error){
+//         console.log("Unable to reach services");
+//     }else if(response.body.features.length === 0){
+//         console.log("Unable to find location...try another search");
+//     }else{
+//         const longitude = response.body.features[0].center[0]
+//         console.log(longitude);
+//         const latitude = response.body.features[0].center[1]
+//         console.log(latitude);    
+//         // console.log(latitude, longitude);
+//     }
+// })
