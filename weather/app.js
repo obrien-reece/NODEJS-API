@@ -1,18 +1,58 @@
 const chalk = require('chalk')
 const request = require("request")
+const yargs = require('yargs')
 const forecast = require("./utils/forecast")
 const geocode = require("./utils/geocode")
 
-forecast(-1.286389,36.817223, (error, data) => {
-    console.log("Error", error);
-    console.log("Data", data);
-})
 
-geocode("Nairobi", (error,data) => {
-    console.log("Data",data);
-    console.log("Error",error);
-})
 
+//USING THE YARGS COMMAND TO GET THE LOCATION FROM THE USER INSTEAD OF THE PROCESS.ARGV
+// yargs.command({
+//     command: "add",
+//     describe: "add Location",
+//     builder: {
+//         title:{
+//             demandOption: true,
+//             type: "string",
+//         }
+//     },
+//     handler: function(argv) {
+//         console.log("Test", argv);
+
+//         // const locations = argv.title
+//         // console.log(locations);
+//     }
+// })
+
+// const locations = yargs.argv.title
+// console.log(locations);
+// // console.log(process.argv);
+
+
+// yargs.parse()
+
+
+
+
+const address = process.argv[2]
+
+if(!address){
+    console.log("Please insert a location");
+}else{
+geocode(address, (error,data) => {
+    if(error){
+       return console.log(error);
+    }
+
+    forecast(data.latitude,data.longitude, (error, forecastData) => {
+        if(error){
+           return console.log(error);
+        }
+        console.log(data.location);
+        console.log(forecastData);
+    })
+})
+}
 // gets  ordered food when
 // food is ready
 // const getFood = function() {
