@@ -3,21 +3,21 @@ const chalk = require('chalk')
 
 const forecast = (latitude,longitude,callback) => {
 
-    const forecastUrl = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=' + latitude + ',' + longitude + '&units=f'
+    const geocodeUrl = 'http://api.weatherstack.com/current?access_key=13b5e5c13be19948d516ac2c69dead86&query=' + latitude + ',' + longitude + '&units=f'
 
-    request({ forecastUrl, json:true }, (error,{ body }) => {
+    request({url:geocodeUrl, json:true}, (error,response) => {
 
         if(error){
             callback("Unable to connect to internet", undefined)
-        }else if(body.error){
+        }else if(response.body.error){
             callback("Unable to find specified location", undefined)
         }else{
             callback(undefined,"Its " +
-                           body.current.weather_descriptions[0] +
+                           response.body.current.weather_descriptions[0] +
                            ". It is currently " + 
-                           body.current.temperature + 
+                           response.body.current.temperature + 
                            " degrees. It feels like " + 
-                           body.current.feelslike + " degrees")
+                           response.body.current.feelslike + " degrees")
         }
     })
 }
