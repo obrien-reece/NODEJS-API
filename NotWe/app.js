@@ -15,7 +15,7 @@ geocode(address, (error, data) => {
     }
 
     console.log(data);
-    const geoData = JSON.stringify(data)
+    // const geoData = JSON.stringify(data)
     // fs.writeFileSync("geodata.json", geoData)
 
     forecast(data.latitude, data.longitude, (error, forecastData) => {
@@ -24,7 +24,7 @@ geocode(address, (error, data) => {
         }
 
         console.log(forecastData);
-        const foreData = JSON.stringify(forecastData)
+        // const foreData = JSON.stringify(forecastData)
         // fs.writeFileSync("weatherdata.json", foreData)
     })
 })
