@@ -26,7 +26,7 @@ const geocode = require("./utils/geocode")
 
 // const locations = yargs.argv.title
 // console.log(locations);
-// // console.log(process.argv);
+// console.log(process.argv);
 
 
 // yargs.parse()
@@ -39,16 +39,16 @@ const address = process.argv[2]
 if(!address){
     console.log("Please insert a location");
 }else{
-geocode(address, (error,data) => {
+geocode(address, (error, {longitude, latitude, location} ={}) => {
     if(error){
        return console.log(error);
     }
 
-    forecast(data.latitude,data.longitude, (error, forecastData) => {
+    forecast(latitude,longitude, (error, forecastData) => {
         if(error){
            return console.log(error);
         }
-        console.log(data.location);
+        console.log(location);
         console.log(forecastData);
     })
 })
@@ -57,9 +57,10 @@ geocode(address, (error,data) => {
 // food is ready
 // const getFood = function() {
 //     console.log('3. thank you, I have reaceived my food!');
+    //    console.log("Vi Editor was used");
 //   }
   
-//   // receives  ordered food
+
 //   // receives a function that will be called 
 //   // when 1 second ellapses
 //   // prepares  the ordered food
