@@ -9,6 +9,7 @@ if(!address){
     return console.log("Please type a location");
 }
 
+debugger
 geocode(address, (error, data) => {
     if(error){
         return console.log(error);
