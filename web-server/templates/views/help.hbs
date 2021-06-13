@@ -7,8 +7,12 @@
 </head>
 <body>
 
-<h1>{{ title }} {{ name }}</h1><hr>
+{{> header }}
+
+<h1>{{ name }}</h1>
 <img src="/img/jpg.jpg">
-<h3><i>This gorilla looks like {{ name }}</i></h3>
+<h3><i><p> {{ message }} </p></i></h3>
+
+{{> footer }}
 </body>
 </html>

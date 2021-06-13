@@ -1,24 +1,27 @@
 const path = require("path")
 const express = require('express')
 const app = express()
+const hbs = require("hbs")
 
 console.log(__dirname);
 console.log(path.join(__dirname, "../public"));
 
-//public directory
+//paths to directoties
 const publicDirectoryPath = path.join(__dirname, "../public")
-//views directory
-const viewsPath = path.join(__dirname, "../views")
+const viewsPath = path.join(__dirname, "../templates/views")
+const partialsPath = path.join(__dirname, "../templates/partials")
+
 app.use(express.static(publicDirectoryPath))
 
 //set the directory for the views and setup handlebare engine
 app.set('views', viewsPath)
 app.set('view engine', 'hbs')
+hbs.registerPartials(partialsPath)
 
 //using the handlebars templating to serve up dynamic pages
 app.get('', (req, res) => {
     res.render('index', {
-        title: "My name is: ",
+        title: "This is the Index Page",
         name: `Evance O'Brien`
     })
 })
@@ -32,6 +35,7 @@ app.get('/about', (req, res) => {
 
 app.get('/help', (req, res) => {
     res.render('help', {
+        title: 'This is the Help page',
         message: 'Am done creating the help message template',
         name: "Distress call from O'Brien Reece"
     })
@@ -60,6 +64,24 @@ app.get('/weather', (req, res) => {
     },{
         location: `Nairobi Kenya`
     }])
+})
+
+app.get('/help/*', (req,res) => {
+    // res.send("Help article not found")
+    res.render("404", {
+        title: "Unknown help page Url",
+        error: "Help article not found",
+        name: "Help page unknown footer"
+    })
+})
+
+app.get('*', (req, res) => {
+    // res.send("My 404 Page")
+    res.render('404', {
+        title: "Unknown Url",
+        error: "Page not found",
+        name: "Unknown url page found"
+    })
 })
 
 app.listen(3000, () => {
