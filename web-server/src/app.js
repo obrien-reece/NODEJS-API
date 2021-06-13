@@ -2,15 +2,17 @@ const path = require("path")
 const express = require('express')
 const app = express()
 
-
 console.log(__dirname);
 console.log(path.join(__dirname, "../public"));
 
+//public directory
 const publicDirectoryPath = path.join(__dirname, "../public")
+//views directory
+const viewsPath = path.join(__dirname, "../views")
 app.use(express.static(publicDirectoryPath))
 
-//set the directory for the views
-app.set('views', path.join(__dirname, "../views"))
+//set the directory for the views and setup handlebare engine
+app.set('views', viewsPath)
 app.set('view engine', 'hbs')
 
 //using the handlebars templating to serve up dynamic pages
@@ -23,8 +25,15 @@ app.get('', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        titleabout: "This is the about page",
-        nameabout: "Evance O'Brien"
+        title: "This is the about page",
+        name: "Evance O'Brien"
+    })
+})
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        message: 'Am done creating the help message template',
+        name: "Distress call from O'Brien Reece"
     })
 })
 
