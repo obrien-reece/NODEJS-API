@@ -59,11 +59,21 @@ app.get('/about', (req, res) => {
 
 //serving up static pages that do not require changing
 app.get('/weather', (req, res) => {
-    res.send([{
-        forecast: `It's partly cloudy at the moment`
-    },{
-        location: `Nairobi Kenya`
-    }])
+    if(!req.query.address){
+        return res.send({
+            error: "Input an address please"
+        })
+    }
+    console.log(req.query.address);
+    const address = req.query.address
+    res.send({
+        address: address
+    })
+    // res.send([{
+    //     forecast: `It's partly cloudy at the moment`
+    // },{
+    //     location: `Nairobi Kenya`
+    // }])
 })
 
 app.get('/help/*', (req,res) => {
