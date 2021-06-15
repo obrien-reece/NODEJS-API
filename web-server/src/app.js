@@ -2,6 +2,9 @@ const path = require("path")
 const express = require('express')
 const app = express()
 const hbs = require("hbs")
+const forecast = require("./utils/forecast")
+const geocode = require("./utils/geocode")
+
 
 console.log(__dirname);
 console.log(path.join(__dirname, "../public"));
@@ -59,22 +62,35 @@ app.get('/about', (req, res) => {
 
 //serving up static pages that do not require changing
 app.get('/weather', (req, res) => {
-    if(!req.query.address){
+    if (!req.query.address) {
         return res.send({
-            error: "Input an address please"
+            error: 'You must provide an address!'
         })
     }
-    console.log(req.query.address);
-    const address = req.query.address
-    res.send({
-        address: address
+
+    geocode(req.query.address, (error,geocodedata) => {
+        if (error) {
+            return res.send({ error })
+        }
+        // res.send({
+        //     geocodedata,
+        //     address: req.query.address
+        // })
+
+        forecast(geocodedata.latitude, geocodedata.longitude, (error, forecastData) => {
+            if (error) {
+                return res.send({ error })
+            }
+
+            res.send({
+                forecast: forecastData,
+                geo: geocodedata
+                // address: req.query.address
+            })
+        })
     })
-    // res.send([{
-    //     forecast: `It's partly cloudy at the moment`
-    // },{
-    //     location: `Nairobi Kenya`
-    // }])
 })
+
 
 app.get('/help/*', (req,res) => {
     // res.send("Help article not found")
