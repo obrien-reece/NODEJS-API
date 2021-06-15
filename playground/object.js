@@ -16,11 +16,18 @@ const product = {
     stock: 302
 }
 
-const transaction = (type, { status, ratings }) => {
+const transaction = (type, { status, ratings = 0 } = {}) => {
     console.log(type, status, ratings);
 }
 
-transaction("order", product)
+transaction("order")
+
+const greetings = (name = "O'Brien") => {
+	console.log("Hello " + name)
+}
+
+greetings(name)
+greetings()
 
 // const {status:productStatus, ratings, stock = 872} = product
 
