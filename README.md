@@ -1,12 +1,4 @@
-# NODEJS-API
-
-# At the moment am studying NodeJS with andrew mead as my udemy teacher
-
-# API - Applicarion Programming Interface
-
-# Am developing a weather applications using two APIs
-
-# Weatherstack api (weatherstack.com) and mapbox API (mapbox.com)
-
-My name is O'Brien
-
+Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+Am learning nodejs because I like backend technology
+At the current state I can say that i know and am aware of what APIs are and how to use them.
+I know how to send dynamic pages to the user using the npm library handlebars
