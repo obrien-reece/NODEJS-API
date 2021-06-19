@@ -20,16 +20,57 @@ MongoClient.connect(connectionUrl, { useUnifiedTopology:true }, (error, client) 
 
     const db = client.db(databaseName)
 
-    //Find only one record
-    db.collection('robo3tusers').findOne({ name: "Dororo" }, (error, result) => {
-        if(error){
-            return console.log("Error");
-        }
+    db.collection('robo3tuserstask').findOne({ _id: ObjectID("60ce2e2a7511a87182e1b29f") }, (error, result) => {
+        console.log(result);
+    })
+    
+    db.collection('robo3tuserstask').find({ completion: false }).toArray((error, result) => {
         console.log(result);
     })
 
+    // db.collection("robo3tuserstask").insertMany([
+    //     {
+    //         task: "coding NodeJs",
+    //         completion: true
+    //     },{
+    //         task: "Coding Laravel",
+    //         completion: false
+    //     },{
+    //         task: "Coding MongoDB",
+    //         completion: true
+    //     },{
+    //         task: "Coding ExpressJS",
+    //         completion: true
+    //     },{
+    //         task: "Coding ReactJS",
+    //         completion: false
+    //     }
+    // ], (error, result) => {
+    //     console.log(result.ops);
+    // })
+
+    //Find only one record
+    // db.collection('robo3tusers').findOne({ name: "Dororo" }, (error, result) => {
+    //     if(error){
+    //         return console.log("Error");
+    //     }
+    //     console.log(result);
+    // })
+
     //find many records
-    db.collection('robo3tusers')
+    // db.collection('robo3tusers').find({ name: "Dororo" }).toArray((error, result) => {
+    //     if(error){
+    //         return console.log('Error');
+    //     }
+    //     console.log(result);
+    // })
+
+    // db.collection('robo3tusers').find({ name: "Dororo" }).count((error, result) => {
+    //     if(error){
+    //         return console.log('Error');
+    //     }
+    //     console.log(result);
+    // })    
 
 
     //find by id
