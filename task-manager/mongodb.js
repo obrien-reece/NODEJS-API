@@ -1,52 +1,66 @@
 const mongodb = require('mongodb')
-const mongoClient = mongodb.MongoClient
+const MongoClient = mongodb.MongoClient
+const ObjectID = mongodb.ObjectID
 
-const connectionUrl = "mongodb://127.0.0.1:27017"
-const databaseName = "task-manager"
+//de structure
+// const { MongoClient, ObjectID } = require('mongodb')
 
-/*Current Server Discovery and Monitoring engine is deprecated, and will be 
-removed in a future version. To use the new Server Discover and Monitoring engine, 
-pass option { useUnifiedTopology: true } to the MongoClient constructor.
-(Use `node --trace-warnings ...` to show where the warning was created)*/
+//ypo can set your own od to be inserted
+// const id = new ObjectID()
+// console.log(id);
+// console.log(id.getTimestamp());
 
-//am being told to remove the { useNewUrlParser: true } object and replace with { useUnifiedTopology: true } 
-mongoClient.connect(connectionUrl, { useUnifiedTopology: true }, (error, client) => {
+const connectionUrl = "mongodb://127.0.0.1/27017"
+const databaseName = "robo3t"
+
+MongoClient.connect(connectionUrl, { useUnifiedTopology:true }, (error, client) => {
     if(error){
-        return console.log("Unable to connect to database");
+        return console.log("Unable to establish connection");
     }
-    
+
     const db = client.db(databaseName)
-    
-    //insert one user
 
-    /*
-    db.collection('users').insertOne({
-        name: "Evance",
-        age: 27
-    }, (error, result) => {
+    //Find only one record
+    db.collection('robo3tusers').findOne({ name: "Dororo" }, (error, result) => {
         if(error){
-        return console.log("Unable to insert user");
+            return console.log("Error");
         }
-        console.log(result.ops);
+        console.log(result);
     })
-    */
+
+    //find many records
+    db.collection('robo3tusers')
 
 
-    //Insert many users
+    //find by id
+    // db.collection('robo3tusers').findOne({ _id: ObjectID("60ce1d297ee5e552800f3fa1") }, (error, result) => {
+    //     if(error){
+    //         return console.log("Error");
+    //     }
+    //     console.log(result);
+    // })
 
-    db.collection('users').insertMany([
-        {
-            name: "Evance O'Brien",
-            age: 34
-        },{
-            name: 'Reeece Indeche',
-            age: 45
-        }
-    ], (error, result) => {
-        if(error){
-        return console.log("Unable to insert documents");
-        }
-
-        console.log(result.ops);
-    })
+    // db.collection('robo3tusers').insertMany([
+    //     {
+    //         name: "Dororo",
+    //         skill: "Companion",
+    //         age: 12,
+    //         Anime: "Dororo"
+    //     },{
+    //         name: "Captain Meliodas",
+    //         skill: "Raw Power",
+    //         age: 12,
+    //         Anime: "The Seven Deadly Sins"
+    //     },{
+    //         name: "Riuk",
+    //         skill: "Magical Power",
+    //         age: "Infinite",
+    //         Anime: "Death Note"
+    //     }
+    // ], (error, result) => {
+    //     if(error){
+    //         return console.log("There was an error...please try again");
+    //     }
+    //     console.log(result.ops);
+    // })
 })
