@@ -20,13 +20,54 @@ MongoClient.connect(connectionUrl, { useUnifiedTopology:true }, (error, client) 
 
     const db = client.db(databaseName)
 
-    db.collection('robo3tuserstask').findOne({ _id: ObjectID("60ce2e2a7511a87182e1b29f") }, (error, result) => {
-        console.log(result);
-    })
+    // db.collection('robo3tuserstask').findOne({ _id: ObjectID("60ce2e2a7511a87182e1b29f") }, (error, result) => {
+    //     console.log(result);
+    // })
     
-    db.collection('robo3tuserstask').find({ completion: false }).toArray((error, result) => {
+    // db.collection('robo3tuserstask').find({ completion: false }).toArray((error, result) => {
+    //     console.log(result);
+    // })  
+
+    // db.collection('robo3tuserstask').updateMany({
+    //     completion: false
+    // },{
+    //     $set: {
+    //         completion: true
+    //     }
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
+
+
+    // db.collection('robo3tusers').deleteMany({
+    //     age: "Infinite"
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
+
+    db.collection('robo3tusers').deleteOne({
+        skill: "Swordsman of the devil hills"
+    }).then((result) => {
         console.log(result);
+    }).catch((error) => {
+        console.log(error);
     })
+
+    // db.collection('robo3tusers').updateOne({
+    //     _id: ObjectID("60ce1d297ee5e552800f3fa0")
+    // },{
+    //     $inc: {
+    //         age: 1
+    //     }
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
 
     // db.collection("robo3tuserstask").insertMany([
     //     {
