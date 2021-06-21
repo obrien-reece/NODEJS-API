@@ -4,7 +4,7 @@ const User = require('./models/user')
 const Task = require('./models/task')
 const { update } = require('./models/user')
 
-const app =express()
+const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
@@ -108,14 +108,45 @@ app.patch('/tasks/:id', async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['completion', 'task', 'taskNO']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
-    if(!isValidOperation){
-        return res.status(404).send({ error: "Invalid update field" })
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
     }
+
 
     try{
         const _id = req.params.id
-        const updateTaskByID = await Task.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
+        const updateTaskByID = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true})
+        if (!updateTaskByID) {
+            return res.status(404).send()
+        }
         res.send(updateTaskByID)
+    }catch(e) {
+        res.status(500).send(e)
+    }
+})
+
+app.delete('/users/:id', async (req, res) => {
+    try{
+       
+        const userDelete = await User.findByIdAndDelete(req.params.id)
+
+        if (!userDelete) {
+            return res.status(404).send("Error")
+        }
+
+        res.send(userDelete)
+    }catch(e) {
+        res.status(500).send(e)
+    }
+})
+
+app.delete('/tasks/:id', async (req, res) => {
+    try{
+        const deleteTask = await Task.findByIdAndDelete(req.params.id)
+        if(!deleteTask){
+            return res.status(404).send({ error: "No task found with that ID" })
+        }
+        res.send(deleteTask)
     }catch(e) {
         res.status(500).send(e)
     }
