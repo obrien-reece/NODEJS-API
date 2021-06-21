@@ -2,6 +2,7 @@ const express = require('express')
 require("./db/mongoose")
 const User = require('./models/user')
 const Task = require('./models/task')
+const { update } = require('./models/user')
 
 const app =express()
 const port = process.env.PORT || 3000
@@ -78,6 +79,43 @@ app.get("/tasks/:id", async (req, res) => {
         const findTaskByID = await Task.findById({ _id })
         res.send(findTaskByID)
         
+    }catch(e) {
+        res.status(500).send(e)
+    }
+})
+
+app.patch('/users/:id', async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email','password','age']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+    if(!isValidOperation){
+        return res.status(404).send({ error: "Invalid update field" })
+    }
+
+    try{
+        const _id = req.params.id
+        const updateUser = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
+        if(!updateUser){
+            return res.status(404).send()
+        }
+        res.send(updateUser)
+    }catch(e) {
+        res.status(500).send()
+    }
+})
+
+app.patch('/tasks/:id', async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['completion', 'task', 'taskNO']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+    if(!isValidOperation){
+        return res.status(404).send({ error: "Invalid update field" })
+    }
+
+    try{
+        const _id = req.params.id
+        const updateTaskByID = await Task.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
+        res.send(updateTaskByID)
     }catch(e) {
         res.status(500).send(e)
     }
