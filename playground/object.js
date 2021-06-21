@@ -29,15 +29,15 @@ const greetings = (name = "O'Brien") => {
 greetings(name)
 greetings()
 
-// const {status:productStatus, ratings, stock = 872} = product
+const {status:productStatus, ratings, stock = 872} = product
 
-// console.log(stock);
-// console.log(productStatus);
-// console.log(ratings);
+console.log(stock);
+console.log(productStatus);
+console.log(ratings);
 
-// console.log(product);
+console.log(product);
 
-// const rate = product.ratings
-// console.log(rate);
-// const stock = product.stock
-// console.log(stock);
+const rate = product.ratings
+console.log(rate);
+const stock = product.stock
+console.log(stock);
