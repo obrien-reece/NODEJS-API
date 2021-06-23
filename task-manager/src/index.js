@@ -11,11 +11,11 @@ const port = process.env.PORT || 3000
 //     next()
 // })
 
-app.use((req, res, next) => {
-    if(req.method === 'GET' || 'POST' || 'PATCH', 'DELETE') {
-        res.status(503).send("Server is under maintanance")
-    }
-})
+// app.use((req, res, next) => {
+//     if(req.method === 'GET' || 'POST' || 'PATCH', 'DELETE') {
+//         res.status(503).send("Server is under maintanance")
+//     }
+// })
 
 app.use(express.json())
 app.use(userRouter)
